@@ -6,11 +6,16 @@ public class PlayerController : MonoBehaviour
 {
     Animator _anim;
     [SerializeField]
-    private float _speed;
+    private float _init_speed;
+    [SerializeField]
+    private float _init_sprintSpeed;
+
     private PlayerActions _playerActions;
     private Rigidbody2D _rbody;
     private Vector2 _moveInput;
-    private Vector3 saved_scale;
+    private Vector3 _init_scale;
+
+    private float _speed;
 
     void Awake()
     {
@@ -19,17 +24,19 @@ public class PlayerController : MonoBehaviour
 
         _playerActions = new PlayerActions();
 
+         _speed = _init_speed;
+        
         _playerActions.Player_Map.Sprint.started += ctx =>
         {
-            _speed = 6;
+            _speed = _init_sprintSpeed;
         };
 
         _playerActions.Player_Map.Sprint.canceled += ctx =>
         {
-            _speed = 1;
+            _speed = _init_speed;
         };
 
-        saved_scale = transform.localScale;
+        _init_scale = transform.localScale;
     }
 
     private void OnEnable()
@@ -45,15 +52,15 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         _moveInput = _playerActions.Player_Map.Movement.ReadValue<Vector2>();
-        _rbody.velocity = _moveInput * _speed;
+        _rbody.velocity = new Vector3(_moveInput.x * _speed, _rbody.velocity.y);
 
         if (_rbody.velocity.x == 0)
-            transform.localScale = saved_scale;
-        else 
-            {
-                transform.localScale = new Vector3(_rbody.velocity.normalized.x, transform.localScale.y, transform.localScale.z);
-                saved_scale =transform.localScale;
-            }
+            transform.localScale = _init_scale;
+        else
+        {
+            transform.localScale = new Vector3(Mathf.Sign(_rbody.velocity.x) * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            _init_scale = transform.localScale;
+        }
         int abs_speed = Mathf.CeilToInt(Mathf.Abs(_rbody.velocity.x));
         _anim.SetFloat("speed", abs_speed);
     }
