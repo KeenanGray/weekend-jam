@@ -309,8 +309,8 @@ TextureImporter:
       name: paper_tile_512_9
       rect:
         serializedVersion: 2
-        x: 1536
-        y: 3072
+        x: 1313
+        y: 2144
         width: 128
         height: 128
       alignment: 0
@@ -1128,8 +1128,8 @@ TextureImporter:
       name: paper_tile_512_48
       rect:
         serializedVersion: 2
-        x: 504
-        y: 3576
+        x: 1781
+        y: 2938
         width: 128
         height: 128
       alignment: 0
@@ -1162,6 +1162,48 @@ TextureImporter:
       bones: []
       spriteID: 0b041e4d26eb14beda6a5fa93452cd38
       internalID: -1502945320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: paper_tile_512_50
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2735
+        width: 2657
+        height: 1173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60d5bdfc77ab941259925a9506b962ad
+      internalID: -599367088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: paper_tile_512_51
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1792
+        width: 3072
+        height: 1322
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af6158a395f1b4ecf8e1b0431218eb77
+      internalID: -743606719
       vertices: []
       indices: 
       edges: []
@@ -1201,6 +1243,7 @@ TextureImporter:
       paper_tile_512_17: -1301235609
       paper_tile_512_29: -961034263
       paper_tile_512_12: 1534616352
+      paper_tile_512_50: -599367088
       paper_tile_512_10: -1018652017
       paper_tile_512_0: 924374094
       paper_tile_512_19: -2007024841
@@ -1224,6 +1267,7 @@ TextureImporter:
       paper_tile_512_28: 1251599743
       paper_tile_512_3: -291251239
       paper_tile_512_46: 2087137873
+      paper_tile_512_51: -743606719
       paper_tile_512_39: 794757999
       paper_tile_512_34: 1923358368
       paper_tile_512_1: 184930473

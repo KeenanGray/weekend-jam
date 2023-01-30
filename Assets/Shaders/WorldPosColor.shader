@@ -8,6 +8,7 @@ Shader "Custom/WorldPositionColor"
         _Color2 ("Color2", Color) = (1,1,1,1)
         _Threshold ("Threshold", Range(0.0,0.0525)) = .01
         _MainTex("Texture", 2D) = "white"
+        _FalloffTex("Falloff",2D) = "white"
         _WorldOffset("WorldOffset", Vector) = (0.0,0.0,0,0)
     }
 
@@ -39,6 +40,7 @@ Shader "Custom/WorldPositionColor"
             float3 _WorldOffset;
 
             sampler2D _MainTex;
+            sampler2D _FalloffTex;
 
             struct v2f
             {
@@ -63,11 +65,13 @@ Shader "Custom/WorldPositionColor"
                 //float4 color = tex2D(_MainTex,i.uv) * float4(1,i.world.g,1,1)/_Cancel * _Color;
                 
                 float avg = i.world.g * _Threshold;
+                
                 float4 color = ( ((1-avg) * _Color2) 
                 + ((avg) * _Color) )
                 * tex2D(_MainTex,i.uv);
-                
-                //clip(1-avg+.0001);
+
+                color.a = 1 - tex2D(_FalloffTex,i.uv);
+                //clip(tex2D(_FalloffTex,i.uv));
 
                 return color;
             };
