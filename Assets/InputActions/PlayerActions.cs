@@ -44,6 +44,15 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Telescope"",
+                    ""type"": ""Button"",
+                    ""id"": ""ba7625b6-2d94-4c0b-beec-256f0e7eeb45"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -178,6 +187,17 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8f23e2e0-1863-41fe-881a-479a8379c39f"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Telescope"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -194,6 +214,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         m_Player_Map = asset.FindActionMap("Player_Map", throwIfNotFound: true);
         m_Player_Map_Movement = m_Player_Map.FindAction("Movement", throwIfNotFound: true);
         m_Player_Map_Sprint = m_Player_Map.FindAction("Sprint", throwIfNotFound: true);
+        m_Player_Map_Telescope = m_Player_Map.FindAction("Telescope", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -255,12 +276,14 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private IPlayer_MapActions m_Player_MapActionsCallbackInterface;
     private readonly InputAction m_Player_Map_Movement;
     private readonly InputAction m_Player_Map_Sprint;
+    private readonly InputAction m_Player_Map_Telescope;
     public struct Player_MapActions
     {
         private @PlayerActions m_Wrapper;
         public Player_MapActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_Player_Map_Movement;
         public InputAction @Sprint => m_Wrapper.m_Player_Map_Sprint;
+        public InputAction @Telescope => m_Wrapper.m_Player_Map_Telescope;
         public InputActionMap Get() { return m_Wrapper.m_Player_Map; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -276,6 +299,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Sprint.started -= m_Wrapper.m_Player_MapActionsCallbackInterface.OnSprint;
                 @Sprint.performed -= m_Wrapper.m_Player_MapActionsCallbackInterface.OnSprint;
                 @Sprint.canceled -= m_Wrapper.m_Player_MapActionsCallbackInterface.OnSprint;
+                @Telescope.started -= m_Wrapper.m_Player_MapActionsCallbackInterface.OnTelescope;
+                @Telescope.performed -= m_Wrapper.m_Player_MapActionsCallbackInterface.OnTelescope;
+                @Telescope.canceled -= m_Wrapper.m_Player_MapActionsCallbackInterface.OnTelescope;
             }
             m_Wrapper.m_Player_MapActionsCallbackInterface = instance;
             if (instance != null)
@@ -286,6 +312,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Sprint.started += instance.OnSprint;
                 @Sprint.performed += instance.OnSprint;
                 @Sprint.canceled += instance.OnSprint;
+                @Telescope.started += instance.OnTelescope;
+                @Telescope.performed += instance.OnTelescope;
+                @Telescope.canceled += instance.OnTelescope;
             }
         }
     }
@@ -303,5 +332,6 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnTelescope(InputAction.CallbackContext context);
     }
 }

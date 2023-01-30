@@ -6,8 +6,9 @@ Shader "Custom/WorldPositionColor"
     {
         _Color ("Color", Color) = (1,1,1,1)
         _Color2 ("Color2", Color) = (1,1,1,1)
-        _Scalar ("Scalar", Float) = 10.0
+        _Threshold ("Threshold", Range(0.0,0.0525)) = .01
         _MainTex("Texture", 2D) = "white"
+        _WorldOffset("WorldOffset", Vector) = (0.0,0.0,0,0)
     }
 
     SubShader
@@ -34,7 +35,9 @@ Shader "Custom/WorldPositionColor"
             fixed4 _Color;
             fixed4 _Color2;
 
-            float _Scalar;
+            float _Threshold;
+            float3 _WorldOffset;
+
             sampler2D _MainTex;
 
             struct v2f
@@ -48,7 +51,7 @@ Shader "Custom/WorldPositionColor"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.world = mul (unity_ObjectToWorld, v.vertex).xyz/ _Scalar;
+                o.world = mul (unity_ObjectToWorld, v.vertex + _WorldOffset ).xyz ;
                 o.uv = v.uv;
                 
                 return o;
@@ -58,12 +61,14 @@ Shader "Custom/WorldPositionColor"
             {
                 //float4 color = tex2D(_MainTex, i.uv) * float4(1, i.vertex.g, 0,1);
                 //float4 color = tex2D(_MainTex,i.uv) * float4(1,i.world.g,1,1)/_Cancel * _Color;
-                float avg = i.world.g/3;
+                
+                float avg = i.world.g * _Threshold;
                 float4 color = ( ((1-avg) * _Color2) 
                 + ((avg) * _Color) )
                 * tex2D(_MainTex,i.uv);
                 
-                clip(1-avg+.0001);
+                //clip(1-avg+.0001);
+
                 return color;
             };
             ENDCG
