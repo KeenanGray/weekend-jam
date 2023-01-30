@@ -42,7 +42,7 @@ Material:
     - _Scalar: 35
     - _Threshold: 0.011
     m_Colors:
-    - _Color: {r: 0.029462004, g: 0, b: 0.122641504, a: 0.23529412}
+    - _Color: {r: 1, g: 1, b: 1, a: 0.23529412}
     - _Color2: {r: 0, g: 0, b: 0.5849056, a: 0.49803922}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
