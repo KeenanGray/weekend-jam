@@ -21,12 +21,12 @@ public class PlayerController : MonoBehaviour
     private float _speed;
     private Vector3 _initPos;
 
+    private bool no_movement = false;
+    private bool anim_restricts_movement = false;
+
     //---- SERIALIZED OBJECTS  ----//
     [SerializeField]
     FloatVariable _parallax;
-    [SerializeField]
-    BoolVariable _is_stargazing;
-
 
     void Awake()
     {
@@ -44,14 +44,17 @@ public class PlayerController : MonoBehaviour
             _speed = _init_speed;
 
         _playerActions.Player_Map.Telescope.started += ctx =>
-            UseTelescope();
+           {
+               _anim.SetBool("space_key_held", true);
+           };
 
         _playerActions.Player_Map.Telescope.canceled += ctx =>
-            StopTelescope();
+            {
+                _anim.SetBool("space_key_held", false);
+            };
 
         _init_scale = transform.localScale;
 
-        _is_stargazing.Value = false;
     }
 
     private void OnEnable()
@@ -64,10 +67,22 @@ public class PlayerController : MonoBehaviour
         _playerActions.Player_Map.Disable();
     }
 
+    private void Update()
+    {
+        anim_restricts_movement = _anim.GetBool("space_key_held") || _anim.GetBool("is_stargazing");
+    }
     private void FixedUpdate()
     {
-        if (_is_stargazing.Value)
+
+        if (no_movement || anim_restricts_movement)
+        {
+            _rbody.velocity = new Vector3(0, 0, 0);
+            _anim.SetFloat("speed", 0);
             return;
+        }
+
+        int abs_speed = Mathf.CeilToInt(Mathf.Abs(_rbody.velocity.x));
+        _anim.SetFloat("speed", abs_speed);
 
         _moveInput = _playerActions.Player_Map.Movement.ReadValue<Vector2>();
         _rbody.velocity = new Vector3(_moveInput.x * _speed, _rbody.velocity.y);
@@ -79,44 +94,22 @@ public class PlayerController : MonoBehaviour
             transform.localScale = new Vector3(Mathf.Sign(_rbody.velocity.x) * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             _init_scale = transform.localScale;
         }
-        int abs_speed = Mathf.CeilToInt(Mathf.Abs(_rbody.velocity.x));
-        _anim.SetFloat("speed", abs_speed);
     }
 
-    void SetTelescopeDuration(float t)
+    public void SetNoMovement(bool b)
     {
-        _anim.SetFloat("telescope_hold_time", t);
+        no_movement = b;
     }
 
-    void UseTelescope()
+    void BeginStargazing()
     {
         _anim.SetBool("is_stargazing", true);
-    }
-
-    void StopTelescope()
-    {
-        //cancel the stargaze if we release spacebar too early
-        //the time can be controlled by adjusting the event
-        //in the raise telescope animation
-        if (!_is_stargazing.Value)
-            _anim.SetTrigger("raise_cancel");
-
-        _anim.SetBool("is_stargazing", false);
-        SetTelescopeDuration(0);
-    }
-
-    void StartStargazing()
-    {
-        _is_stargazing.Value = true;
-        _rbody.velocity = new Vector3(0, _rbody.velocity.y, 0);
-        _anim.SetFloat("speed", 0);
         StartCoroutine("HoldTelescope");
     }
 
-    void FinishStargazing()
+    public void EndStargazing()
     {
-        _is_stargazing.Value = false;
-        SetTelescopeDuration(0);
+        _anim.SetBool("is_stargazing", false);
         StopCoroutine("HoldTelescope");
     }
 
@@ -125,9 +118,12 @@ public class PlayerController : MonoBehaviour
         var wfs = new WaitForSeconds(1.0f);
         while (true)
         {
-            if (_is_stargazing.Value)
+            if (_anim.GetBool("is_stargazing"))
                 _anim.SetFloat("telescope_hold_time", _anim.GetFloat("telescope_hold_time") + 1);
+            else
+                break;
             yield return wfs;
         }
+        yield break;
     }
 }
