@@ -44,10 +44,10 @@ Material:
     m_Floats:
     - _EnableExternalAlpha: 0
     - _Scalar: 0.89
-    - _Threshold: 0.0525
+    - _Threshold: 0.0308
     m_Colors:
-    - _Color: {r: 0.05660379, g: 0.044588834, b: 0.044588834, a: 1}
-    - _Color2: {r: 0, g: 0.28662682, b: 0.9339623, a: 1}
+    - _Color: {r: 0.068853706, g: 0.6320754, b: 0, a: 1}
+    - _Color2: {r: 0.98633605, g: 1, b: 0.8349056, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _WorldOffset: {r: 0, g: -30, b: 0, a: 0}

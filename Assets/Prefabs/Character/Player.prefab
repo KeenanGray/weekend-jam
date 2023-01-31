@@ -768,9 +768,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _init_speed: 4
   _init_sprintSpeed: 8
-  backgrounds: []
   _parallax: {fileID: 11400000, guid: d8dc05a52ebf94bdb96cee1362e9c70b, type: 2}
-  isStargazing: {fileID: 11400000, guid: 55dce7ea6646e4d7b92f0e6cba620876, type: 2}
+  _tele_hold_time: {fileID: 11400000, guid: 4e7ff4dbf82ab47f9bcd8b2802b9e9a8, type: 2}
 --- !u!1 &4834631496584142870
 GameObject:
   m_ObjectHideFlags: 0

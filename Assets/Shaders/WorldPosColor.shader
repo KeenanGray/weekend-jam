@@ -70,7 +70,7 @@ Shader "Custom/WorldPositionColor"
                 + ((avg) * _Color) )
                 * tex2D(_MainTex,i.uv);
 
-                color.a = 1 - tex2D(_FalloffTex,i.uv);
+                color.a = clamp(1 - tex2D(_FalloffTex,i.uv),0,.5);
                 //clip(tex2D(_FalloffTex,i.uv));
 
                 return color;

@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     //---- SERIALIZED OBJECTS  ----//
     [SerializeField]
     FloatVariable _parallax;
+    [SerializeField]
+    TelescopeSettings telescopeSettings;
 
     void Awake()
     {
@@ -54,7 +56,11 @@ public class PlayerController : MonoBehaviour
             };
 
         _init_scale = transform.localScale;
+        telescopeSettings.time.ConstantValue = 0;
+    }
 
+    private void Start()
+    {
     }
 
     private void OnEnable()
@@ -103,6 +109,9 @@ public class PlayerController : MonoBehaviour
 
     void BeginStargazing()
     {
+        if (_anim.GetBool("is_stargazing"))
+            return;
+
         _anim.SetBool("is_stargazing", true);
         StartCoroutine("HoldTelescope");
     }
@@ -110,20 +119,39 @@ public class PlayerController : MonoBehaviour
     public void EndStargazing()
     {
         _anim.SetBool("is_stargazing", false);
-        StopCoroutine("HoldTelescope");
     }
 
     IEnumerator HoldTelescope()
     {
-        var wfs = new WaitForSeconds(1.0f);
+        var wfs = new WaitForSeconds(.01f);
         while (true)
         {
-            if (_anim.GetBool("is_stargazing"))
-                _anim.SetFloat("telescope_hold_time", _anim.GetFloat("telescope_hold_time") + 1);
+            if (_anim.GetBool("space_key_held"))
+            {
+                Debug.Log("up");
+                if (telescopeSettings.time.ConstantValue < telescopeSettings.max_time.ConstantValue)
+                    telescopeSettings.time.ConstantValue += .01f;
+
+                if (_anim.GetBool("is_stargazing"))
+                    _anim.SetFloat("telescope_hold_time", telescopeSettings.time.ConstantValue);
+
+                yield return wfs;
+            }
             else
-                break;
-            yield return wfs;
+            {
+                Debug.Log("down");
+                if (telescopeSettings.time.ConstantValue > 0)
+                {
+                    telescopeSettings.time.ConstantValue -= .01f;
+                    yield return wfs;
+                }
+                else
+                {
+                    telescopeSettings.time.ConstantValue = 0;
+                    yield break;
+                }
+            }
         }
-        yield break;
     }
+
 }

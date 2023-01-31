@@ -46,8 +46,8 @@ Material:
     - _Scalar: 35
     - _Threshold: 0.011
     m_Colors:
-    - _Color: {r: 0.21382403, g: 1, b: 0, a: 1}
-    - _Color2: {r: 0, g: 0, b: 0.254717, a: 1}
+    - _Color: {r: 0, g: 0.13206202, b: 0.3962264, a: 1}
+    - _Color2: {r: 0, g: 0.9155476, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _WorldOffset: {r: 0, g: 0, b: 0, a: 0}

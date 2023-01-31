@@ -44,11 +44,11 @@ Material:
     m_Floats:
     - _EnableExternalAlpha: 0
     - _Scalar: 35
-    - _Threshold: 0.011
+    - _Threshold: 0.0525
     m_Colors:
-    - _Color: {r: 0.07903168, g: 0.098237924, b: 0.1509434, a: 0.38431373}
-    - _Color2: {r: 0.06844817, g: 0.055802777, b: 0.20754719, a: 0.3137255}
+    - _Color: {r: 0.5566038, g: 0.06019831, b: 0, a: 1}
+    - _Color2: {r: 1, g: 0, b: 0.051799774, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _WorldOffset: {r: 0, g: 0, b: 0, a: 0}
+    - _WorldOffset: {r: 0, g: -103, b: 0, a: 0}
   m_BuildTextureStacks: []
