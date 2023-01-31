@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: paper_tile_512_02
+  m_Name: paper_tile_512_29
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: 21300000, guid: 4425d66f1933e4fdab4c1f163d4c9968, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9968a4802a943497fb8e8dd5e5f8ecae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
