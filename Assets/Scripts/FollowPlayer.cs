@@ -34,10 +34,16 @@ public class FollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var height = Mathf.Clamp(telescopeSettings.time.ConstantValue.Remap(0, .5f, init_y_offset, init_y_offset + 8), 0, 300 - (2 * Camera.main.orthographicSize));
+        float max_h = telescopeSettings.max_height;
+        float max_t = telescopeSettings.max_time;
+
+        var height = Mathf.Clamp(telescopeSettings.time.Value.Remap(0, max_t, init_y_offset, init_y_offset + max_h), 0, max_h);
         y_offset = height;
 
-        var cam_size = Mathf.Clamp(telescopeSettings.time.ConstantValue.Remap(0, 8, 15, 100), 15, 100);
+        float start_o = telescopeSettings.min_ortho;
+        float max_o = telescopeSettings.max_ortho;
+
+        var cam_size = Mathf.Clamp(telescopeSettings.time.Value.Remap(0, max_t, start_o, max_o), 0, max_o);
         Camera.main.orthographicSize = cam_size;
 
         //keep the camera in bounds while following the player.

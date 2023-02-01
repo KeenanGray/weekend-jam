@@ -86,7 +86,7 @@ Shader "Custom/WorldPositionColor"
                 //clip(tex2D(_FalloffTex,i.uv));
                 //color.a = clamp(random(i.uv) + tex2D(_Noise,i.uv) * 1- tex2D(_FalloffTex,i.uv) ,0,1);
                 
-                color.a = clamp(1 - tex2D(_FalloffTex,i.uv), 0, 1);
+                color.a = clamp(1.5 - tex2D(_FalloffTex,i.uv), 0,1);
                 return color;
             };
 

@@ -53,7 +53,7 @@ Material:
     - _EnableExternalAlpha: 0
     - _Float: 2
     - _Scalar: 0.89
-    - _Scaling: 2
+    - _Scaling: 1
     - _Threshold: 0.0125
     m_Colors:
     - _Color: {r: 0.068853706, g: 0.6320754, b: 0, a: 1}

@@ -15,10 +15,12 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rbody;
     private Animator _anim;
 
+    //---- PUBLIC VARIABLES ----//
+    public float _speed;
+
     //---- PRIVATE VARIABLES ----//
     private Vector2 _moveInput;
     private Vector3 _init_scale;
-    private float _speed;
     private Vector3 _initPos;
 
     private bool no_movement = false;
@@ -56,11 +58,7 @@ public class PlayerController : MonoBehaviour
             };
 
         _init_scale = transform.localScale;
-        telescopeSettings.time.ConstantValue = 0;
-    }
-
-    private void Start()
-    {
+        telescopeSettings.time.SetValue(0);
     }
 
     private void OnEnable()
@@ -87,7 +85,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        int abs_speed = Mathf.CeilToInt(Mathf.Abs(_rbody.velocity.x));
+        int abs_speed = (int)Mathf.Clamp(Mathf.Abs(_rbody.velocity.x), 0, _init_sprintSpeed);
         _anim.SetFloat("speed", abs_speed);
 
         _moveInput = _playerActions.Player_Map.Movement.ReadValue<Vector2>();
@@ -128,26 +126,24 @@ public class PlayerController : MonoBehaviour
         {
             if (_anim.GetBool("space_key_held"))
             {
-                Debug.Log("up");
-                if (telescopeSettings.time.ConstantValue < telescopeSettings.max_time.ConstantValue)
-                    telescopeSettings.time.ConstantValue += .01f;
+                if (telescopeSettings.time < telescopeSettings.max_time)
+                    telescopeSettings.time.SetValue(telescopeSettings.time + 0.01f);
 
                 if (_anim.GetBool("is_stargazing"))
-                    _anim.SetFloat("telescope_hold_time", telescopeSettings.time.ConstantValue);
+                    _anim.SetFloat("telescope_hold_time", telescopeSettings.time);
 
                 yield return wfs;
             }
             else
             {
-                Debug.Log("down");
-                if (telescopeSettings.time.ConstantValue > 0)
+                if (telescopeSettings.time > 0)
                 {
-                    telescopeSettings.time.ConstantValue -= .01f;
+                    telescopeSettings.time.SetValue(telescopeSettings.time - 0.01f);
                     yield return wfs;
                 }
                 else
                 {
-                    telescopeSettings.time.ConstantValue = 0;
+                    telescopeSettings.time.SetValue(0);
                     yield break;
                 }
             }

@@ -14,9 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TeleScopeSettings
   time:
     UseConstant: 0
-    ConstantValue: 0
+    ConstantValue: 8.250093
     Variable: {fileID: 11400000, guid: 4e7ff4dbf82ab47f9bcd8b2802b9e9a8, type: 2}
   max_time:
     UseConstant: 1
-    ConstantValue: 8.25
+    ConstantValue: 6
+    Variable: {fileID: 0}
+  min_ortho:
+    UseConstant: 1
+    ConstantValue: 15
+    Variable: {fileID: 0}
+  max_ortho:
+    UseConstant: 1
+    ConstantValue: 160
+    Variable: {fileID: 0}
+  max_height:
+    UseConstant: 1
+    ConstantValue: 100
     Variable: {fileID: 0}

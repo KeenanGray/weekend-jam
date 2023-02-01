@@ -5,8 +5,11 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/weekend-jam.unity
-    guid: 570925c9f40fd496ea72db9923c97a63
+    path: Assets/Scenes/weekend-jam-test.unity
+    guid: 9b9c64ba825c34ccb8241c4b053ee4ea
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1746a10f777e643978a2c1ef887b755a, type: 2}

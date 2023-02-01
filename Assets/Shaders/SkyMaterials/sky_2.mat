@@ -53,12 +53,12 @@ Material:
     - _EnableExternalAlpha: 0
     - _Float: 2
     - _Scalar: 35
-    - _Scaling: 2
-    - _Threshold: 0.0125
+    - _Scaling: 1
+    - _Threshold: 0.0036
     m_Colors:
-    - _Color: {r: 0, g: 0.13206202, b: 0.3962264, a: 1}
-    - _Color2: {r: 0.3915094, g: 0.46241823, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color2: {r: 0, g: 0.26078603, b: 0.38679248, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _WorldOffset: {r: 0, g: 39, b: 0, a: 0}
+    - _WorldOffset: {r: 0, g: 30, b: 0, a: 0}
   m_BuildTextureStacks: []
